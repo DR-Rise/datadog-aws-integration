@@ -1,0 +1,43 @@
+datadog:
+  apiKey: "e4e64f768cb306d6cba8b0425297cae2"
+  appKey: "57d3142cf2121ef53d65559350c7ecadb4855c0a"
+
+  logs:
+    enabled: true
+
+  dogstatsd:
+    enabled: true
+
+  dbm:
+    enabled: true
+
+  confd:
+    postgresdb.yaml: |
+      init_config: {}
+      instances:
+        - host: "my-database.crgssooeknof.us-east-1.rds.amazonaws.com"
+          port: 5432
+          username: "datadog_username"
+          password: "datadog_db_password"
+          dbname: "mydatabase"
+
+  daemonset:
+    nodeSelector:
+      kubernetes.io/os: linux
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/os
+              operator: In
+              values:
+              - linux
+
+  volumes:
+    - name: logdatadog
+      emptyDir: {}
+
+  volumeMounts:
+    - name: logdatadog
+      mountPath: /var/log/datadog
