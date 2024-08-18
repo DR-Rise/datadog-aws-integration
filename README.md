@@ -10,4 +10,4 @@ Implement Datadog APM (using the method of admission controller) in a Kubernetes
 Implement Datadog Database Monitoring for PostgreSQL, with the Datadog agent hosted on Kubernetes.
 
 ### Figma Diagram:
-https://www.figma.com/board/GysjVXAb7zUOrAjPxQQpmw/dxhero.io-DevOps?node-id=0-1&t=DtFluIZiYglzUYrD-0
+https://www.figma.com/board/GysjVXAb7zUOrAjPxQQpmw/dxhero.io-DevOps?node-id=0-1&t=DtFluIZiYglzUYrD-1
