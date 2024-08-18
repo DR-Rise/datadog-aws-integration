@@ -1,0 +1,45 @@
+datadog:
+  apiKey: "e4e64f768cb306d6cba8b0425297cae2"
+  appKey: "57d3142cf2121ef53d65559350c7ecadb4855c0a"
+  clusterName: "education-eks-cluster"
+
+  admissionController:
+    enabled: true
+    mutateUnlabelled: true
+
+  apm:
+    enabled: true
+    portEnabled: true
+    socketEnabled: true
+
+  trace:
+    enabled: true
+    samplingRate: 1  # This ensures that 100% of traces are captured.
+
+  processAgent:
+    enabled: true
+    
+  logs:
+    enabled: true
+    containerCollectAll: true
+
+  daemonset:
+    nodeSelector:
+      kubernetes.io/os: linux
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: kubernetes.io/os
+              operator: In
+              values:
+              - linux
+
+  volumes:
+    - name: logdatadog
+      emptyDir: {}
+
+  volumeMounts:
+    - name: logdatadog
+      mountPath: /var/log/datadog
