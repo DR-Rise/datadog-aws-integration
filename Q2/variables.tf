@@ -3,16 +3,6 @@ variable "aws_region" {
   default     = "us-west-2"
 }
 
-variable "vpc_id" {
-  description = "The VPC ID where the EKS cluster is deployed."
-  type        = string
-}
-
-variable "subnet_ids" {
-  description = "The subnets associated with the VPC."
-  type        = list(string)
-}
-
 variable "datadog_api_key" {
   description = "Your Datadog API key."
   type        = string
