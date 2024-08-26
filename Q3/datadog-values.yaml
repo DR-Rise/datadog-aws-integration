@@ -10,16 +10,19 @@ datadog:
 
   dbm:
     enabled: true
+    pg_stat_statements:
+      enabled: true
 
   confd:
-    postgresdb.yaml: |
+    postgres.yaml: |
       init_config: {}
       instances:
-        - host: "my-database.crgssooeknof.us-east-1.rds.amazonaws.com"
+        - host: "my-database.crgssooeknof.us-east-1.rds.amazonaws.com" 
           port: 5432
           username: "datadog_username"
           password: "datadog_db_password"
-          dbname: "mydatabase"
+          dbname: "postgres"
+          dbm: true  
 
   daemonset:
     nodeSelector:
