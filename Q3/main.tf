@@ -143,8 +143,6 @@ resource "helm_release" "datadog" {
   ]
 }
 
-
-
 resource "aws_db_instance" "postgres" {
   allocated_storage       = 20
   engine                  = "postgres"
@@ -154,7 +152,7 @@ resource "aws_db_instance" "postgres" {
   username                = var.db_username
   password                = var.db_password
   parameter_group_name    = "default.postgres13"
-  publicly_accessible     = false
+  publicly_accessible     = true  
   skip_final_snapshot     = true
   vpc_security_group_ids  = [aws_security_group.rds_sg.id]
   db_subnet_group_name    = aws_db_subnet_group.rds_subnet.name
@@ -162,7 +160,7 @@ resource "aws_db_instance" "postgres" {
 
 resource "aws_db_subnet_group" "rds_subnet" {
   name       = "rds_subnet_group"
-  subnet_ids = module.vpc.private_subnets
+  subnet_ids = module.vpc.public_subnets  
 
   tags = {
     Name = "rds_subnet_group"
@@ -178,7 +176,7 @@ resource "aws_security_group" "rds_sg" {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/16"]  # Restrict this to your private subnet or specific CIDR blocks
+    cidr_blocks = ["0.0.0.0/0"] 
   }
 
   egress {
@@ -188,4 +186,3 @@ resource "aws_security_group" "rds_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
