@@ -1,16 +1,16 @@
-// server.js
+// Datadog APM Integration
+const tracer = require('dd-trace').init({
+  service: 'my-node-app',
+  env: 'production',
+  version: '1.0.0',
+  logInjection: true,
+  debug: true
+});
 
 const express = require('express');
 const axios = require('axios');
 const app = express();
 const port = 3000;
-
-// Datadog APM Integration
-const tracer = require('dd-trace').init({
-  env: process.env.DD_ENV || 'production',
-  service: 'my-nodejs-service',
-  version: '1.0.0'
-});
 
 // Middleware to simulate random processing time and errors
 app.use((req, res, next) => {
